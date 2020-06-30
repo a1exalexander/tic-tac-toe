@@ -1,4 +1,4 @@
-# vue-6-game
+# Tic Tac Toe
 
 ## Project setup
 ```
