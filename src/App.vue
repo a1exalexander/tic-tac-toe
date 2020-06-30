@@ -94,14 +94,14 @@ export default {
       Velocity(
         el,
         { maxWidth: "150%" },
-        { duration: 200, complete: done }
+        { delay: 100, duration: 200, complete: done }
       );
     },
     lineLeave(el, done) {
       Velocity(
         el,
         { maxWidth: "0%" },
-        { duration: 200, complete: done }
+        { duration: 100, complete: done }
       );
     }
   },
@@ -196,7 +196,7 @@ export default {
   &__header {
     margin-bottom: 42px;
     @media screen and (min-width: 450px) {
-      margin-bottom: 60px;
+      margin-bottom: 52px;
     }
   }
   &__grid {
@@ -269,6 +269,7 @@ export default {
     border-radius: 3px;
     background-color: $draw-color;
     width: 100%;
+    max-width: 0;
   }
   &.row {
     transform: translateY(-50%);

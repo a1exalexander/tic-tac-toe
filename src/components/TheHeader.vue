@@ -2,8 +2,8 @@
   <header class="header">
     <h1 class="header__title">Tic Tac Toe</h1>
     <div class="header__row">
-      <icon-merge class="header__icon" />
-      <icon-beetroot-academy class="header__icon" />
+      <a class='header__link' href="https://merge.rocks/" target="_blank"><icon-merge class="header__icon" /></a>
+      <a class='header__link' href="https://beetroot.academy/" target="_blank"><icon-beetroot-academy class="header__icon" /></a>
     </div>
   </header>
 </template>
@@ -23,7 +23,7 @@ export default {
 @import '~@/scss/vars';
 .header {
   &__title {
-    margin-bottom: 18px;
+    margin-bottom: 32px;
     color: $main-color;
     @media screen and (min-width: 450px) {
       font-size: 44px;
@@ -37,11 +37,13 @@ export default {
   &__icon {
     width: auto;
     height: 32px;
-    &:not(:last-of-type) {
-      margin-right: 24px;
-    }
     @media screen and (min-width: 450px) {
       height: 40px;
+    }
+  }
+  &__link {
+    &:not(:last-of-type) {
+      margin-right: 24px;
     }
   }
 }
