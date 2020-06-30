@@ -255,7 +255,6 @@ export default {
   height: 6px;
   border-radius: 3px;
   background-color: $draw-color;
-  transition: width 1s ease;
   &.row {
     transform: translateY(-50%);
     &--0 {
