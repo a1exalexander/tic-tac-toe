@@ -255,7 +255,9 @@ export default {
   height: 6px;
   border-radius: 3px;
   background-color: $draw-color;
+  opacity: 0;
   &.row {
+    opacity: 1;
     transform: translateY(-50%);
     &--0 {
       top: 16.6%;
@@ -268,6 +270,7 @@ export default {
     }
   }
   &.col {
+    opacity: 1;
     transform-origin: 0 0;
     transform: rotate(90deg);
     top: 0;
@@ -282,6 +285,7 @@ export default {
     }
   }
   &.diagonal {
+    opacity: 1;
     width: calc(100% * 1.41 - 4px);
     &--0 {
       transform-origin: 0 0;
