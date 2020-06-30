@@ -8,17 +8,15 @@
           enter-active-class="animate__animated animate__fadeIn faster"
           leave-active-class="animate__animated animate__fadeOut faster"
         >
-          <component v-if="!isWin" class="queue" :is="nextStep" :class="nextStep" :key='nextStep' />
+          <component v-if="!isWin" class="queue" :is="nextStep" :class="nextStep" :key="nextStep" />
         </transition>
       </div>
       <div class="grid app__grid" :class="{_draw: isWin && isWin.value === 'draw'}">
-        <transition @enter="lineEnter" @leave="lineLeave" :css="false">
-          <span
-            v-if="!!isWin && isWin.value !== 'draw'"
-            class="line"
-            :class="[getWinType, getWinIdx]"
-          ></span>
-        </transition>
+        <span class="line" :class="[getWinType, getWinIdx]" v-show='isLineVisible'>
+          <transition @enter="lineEnter" @leave='lineLeave' :css="false">
+            <span v-show="isLineVisible" class="line__line"></span>
+          </transition>
+        </span>
         <t-cell
           class="grid__cell"
           @click="() => toggleCell(0, idx)"
@@ -77,7 +75,8 @@ export default {
   },
   data: () => ({
     grid: [...grid],
-    queue: false
+    queue: false,
+    lines: [{}]
   }),
   methods: {
     newGame() {
@@ -92,10 +91,18 @@ export default {
       }
     },
     lineEnter(el, done) {
-      Velocity(el, { maxWidth: "150%" }, { duration: 200, complete: done });
+      Velocity(
+        el,
+        { maxWidth: "150%" },
+        { duration: 200, complete: done }
+      );
     },
     lineLeave(el, done) {
-      Velocity(el, { maxWidth: "0%" }, { duration: 200, complete: done });
+      Velocity(
+        el,
+        { maxWidth: "0%" },
+        { duration: 200, complete: done }
+      );
     }
   },
   computed: {
@@ -109,6 +116,9 @@ export default {
     },
     nextStep() {
       return this.queue ? "zero" : "cross";
+    },
+    isLineVisible() {
+      return !!this.isWin && this.isWin?.value !== 'draw'
     },
     isWin() {
       const { grid } = this;
@@ -249,15 +259,18 @@ export default {
   }
 }
 .line {
+  display: block;
   position: absolute;
   z-index: 4;
   width: 100%;
-  height: 6px;
-  border-radius: 3px;
-  background-color: $draw-color;
-  opacity: 0;
+  &__line {
+    display: block;
+    height: 6px;
+    border-radius: 3px;
+    background-color: $draw-color;
+    width: 100%;
+  }
   &.row {
-    opacity: 1;
     transform: translateY(-50%);
     &--0 {
       top: 16.6%;
@@ -270,7 +283,6 @@ export default {
     }
   }
   &.col {
-    opacity: 1;
     transform-origin: 0 0;
     transform: rotate(90deg);
     top: 0;
@@ -285,7 +297,6 @@ export default {
     }
   }
   &.diagonal {
-    opacity: 1;
     width: calc(100% * 1.41 - 4px);
     &--0 {
       transform-origin: 0 0;
